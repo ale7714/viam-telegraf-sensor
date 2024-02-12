@@ -107,7 +107,7 @@ func toMap(metricsMap map[string][]Metric, logger logging.Logger) map[string]int
 		results[name] = map[string]interface{}{}
 
 		for _, metric := range metrics {
-			for _, groupTag := range []string{"path", "device", "hostname"} {
+			for _, groupTag := range []string{"path", "interface", "sensor", "device", "hostname"} {
 				if _, ok := metric.Tags[groupTag]; ok {
 					grouping := metric.Tags[groupTag].(string)
 					results[name].(map[string]interface{})[grouping] = metricToMap(metric)
@@ -173,7 +173,7 @@ func appendFields(m Metric, newFields map[string]interface{}) (map[string]interf
 
 func getTelegrafMetrics() (string, error) {
 	// telegraf must be configure to output in json format
-	cmd := exec.Command("telegraf", "--config", "/opt/homebrew/etc/telegraf.conf", "--once")
+	cmd := exec.Command("telegraf", "--config", "/etc/viam-telegraf.conf", "--once")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 
