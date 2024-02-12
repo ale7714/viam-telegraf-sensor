@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"os/exec"
 	"reflect"
 	"strings"
@@ -67,20 +68,15 @@ func (cfg *Config) Validate(path string) ([]string, error) {
 }
 
 func (ts *TelegrafSensor) Readings(ctx context.Context, _ map[string]interface{}) (map[string]interface{}, error) {
-	result := map[string]interface{}{}
+	metrics := map[string][]Metric{}
 
-	// telegraf must be configure to output in json format
-	cmd := exec.Command("telegraf", "--config", "/opt/homebrew/etc/telegraf.conf", "--once")
-	var out bytes.Buffer
-	cmd.Stdout = &out
-
-	err := cmd.Run()
+	telegrafOut, err := getTelegrafMetrics()
 	if err != nil {
 		ts.logger.Errorw("Error executing Telegraf", "error", err)
 		return nil, err
 	}
 
-	for _, mline := range strings.Split(out.String(), "\n") {
+	for _, mline := range strings.Split(telegrafOut, "\n") {
 		if mline == "" {
 			continue
 		}
@@ -88,65 +84,103 @@ func (ts *TelegrafSensor) Readings(ctx context.Context, _ map[string]interface{}
 		var metric Metric
 		err := json.Unmarshal([]byte(mline), &metric)
 		if err != nil {
-			ts.logger.Errorw("Error parsing reading", "error", err, "input", mline)
+			ts.logger.Errorw("Error parsing reading", "input", mline, "error", mline)
 		}
 
-		if metric.Name == "disk" {
-			if _, ok := result["disk"]; !ok {
-				result["disk"] = map[string]interface{}{}
-			}
-			path := metric.Tags["path"].(string)
-			result["disk"].(map[string]interface{})[path] = toMap(metric)
-			continue
-		}
-
-		if _, ok := result[metric.Name]; ok {
-			mergeMetrics(result[metric.Name].(map[string]interface{}), metric, ts.logger)
-		} else {
-			result[metric.Name] = toMap(metric)
-		}
+		metrics[metric.Name] = append(metrics[metric.Name], metric)
 	}
 
-	ts.logger.Debugw("Readingds result", "result", result)
-
-	return result, nil
+	return toMap(metrics, ts.logger), nil
 }
 
-func toMap(m Metric) map[string]interface{} {
-	metric := map[string]interface{}{}
+func toMap(metricsMap map[string][]Metric, logger logging.Logger) map[string]interface{} {
+	results := map[string]interface{}{}
 
-	metric["fields"] = m.Fields
-	metric["tags"] = m.Tags
-	metric["timestamp"] = m.Timestamp
+	metricsMap = reduceMetrics(metricsMap, logger)
 
-	return metric
-}
-
-func mergeMetrics(old map[string]interface{}, new Metric, logger logging.Logger) map[string]interface{} {
-	values := reflect.ValueOf(new)
-	types := reflect.TypeOf(new)
-	for i := 0; i < values.NumField(); i++ {
-		value := values.Field(i).Interface()
-		name := strings.ToLower(types.Field(i).Name)
-		if name == "name" || reflect.DeepEqual(old[name], value) {
+	for name, metrics := range metricsMap {
+		if len(metrics) == 1 {
+			results[name] = metricToMap(metrics[0])
 			continue
 		}
 
-		switch reflect.TypeOf(value).String() {
-		case "map[string]interface {}":
-			for k, v := range value.(map[string]interface{}) {
-				if _, ok := old[name].(map[string]interface{})[k]; ok {
-					logger.Debugw("Duplicate internal key", "name", name, "key", k, "v", v, "old", old, "new", new, "value", value)
+		results[name] = map[string]interface{}{}
+
+		for _, metric := range metrics {
+			for _, groupTag := range []string{"path", "device", "hostname"} {
+				if _, ok := metric.Tags[groupTag]; ok {
+					grouping := metric.Tags[groupTag].(string)
+					results[name].(map[string]interface{})[grouping] = metricToMap(metric)
+					break
+				}
+			}
+		}
+
+	}
+
+	return results
+}
+
+func metricToMap(m Metric) map[string]interface{} {
+	mapM := map[string]interface{}{}
+
+	mapM["fields"] = m.Fields
+	mapM["tags"] = m.Tags
+	mapM["timestamp"] = m.Timestamp
+
+	return mapM
+}
+
+// A given Telegraf metric may come in multiple json readings. If tags are the same, merge fields
+// values to report only one Metric per set of tags.
+func reduceMetrics(metricsMap map[string][]Metric, logger logging.Logger) map[string][]Metric {
+	for name, metrics := range metricsMap {
+		metric := metrics[0]
+		reduce := []Metric{metric}
+
+		for i := 1; i < len(metrics); i++ {
+			m := metrics[i]
+
+			if reflect.DeepEqual(metric.Tags, m.Tags) {
+				fields, err := appendFields(metric, m.Fields)
+				if err != nil {
+					logger.Errorw("Error appendig fields", "metric", metric.Name, "fields", metric.Fields, "new_fields", m.Fields)
 					continue
 				}
-
-				old[name].(map[string]interface{})[k] = v
+				metric.Fields = fields
+			} else {
+				reduce = append(reduce, m)
 			}
-		default:
-			logger.Debugw("Duplicate but not a map", "name", name, "value", value, "type", reflect.TypeOf(value).String())
-			continue
 		}
+
+		metricsMap[name] = reduce
+	}
+	return metricsMap
+}
+
+func appendFields(m Metric, newFields map[string]interface{}) (map[string]interface{}, error) {
+	fields := m.Fields
+	for key, val := range newFields {
+		if _, ok := m.Fields[key]; ok {
+			return nil, errors.New("duplicate field key")
+		}
+
+		fields[key] = val
 	}
 
-	return old
+	return fields, nil
+}
+
+func getTelegrafMetrics() (string, error) {
+	// telegraf must be configure to output in json format
+	cmd := exec.Command("telegraf", "--config", "/opt/homebrew/etc/telegraf.conf", "--once")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+
+	err := cmd.Run()
+	if err != nil {
+		return "", err
+	}
+
+	return out.String(), nil
 }
