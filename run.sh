@@ -1,14 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 # This script installs Telegraf and starts the sensor binary
 
-OS=$(uname -s)
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 SUDO=sudo
+
 if [[ $(command -v $SUDO) == "" ]]; then
     echo "No sudo on this system, Telegraf sensor must run with sudo access."
 else 
     if [[ $(command -v telegraf) == "" ]]; then
-        if [ "$OS" = "Darwin" ]; then
+        if [ "$OS" == "Darwin" ]; then
             if [[ $(command -v brew) == "" ]]; then
                 echo "Unable to install Telegraf due to Homebrew missing in the system."
                 echo "Please, install Hombrew before running the sensor."
@@ -16,7 +17,7 @@ else
                 brew update && brew install telegraf
             fi        
         fi
-        if [ "$OS" = "Linux" ]; then
+        if [ "$OS" == "Linux" ]; then
 
                 if command -v apt-get; then
                     # influxdata-archive_compat.key GPG Fingerprint: 9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E
@@ -35,5 +36,5 @@ else
     fi
     $SUDO cp viam-telegraf.conf /etc/viam-telegraf.conf
 
-    exec ./bin "$@"
+    exec ./bin/telegraf-sensor-$OS "$@"
 fi
