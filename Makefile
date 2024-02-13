@@ -1,4 +1,4 @@
-VERSION=0.0.14
+VERSION=0.0.15
 
 bin: bin/telegraf-sensor-linux bin/telegraf-sensor-darwin
 
