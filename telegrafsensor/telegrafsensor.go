@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	Model = resource.NewModel("viam", "viam-sensor", "telegrafsensor")
+	Model = resource.NewModel("aleparedes", "viam-sensor", "telegrafsensor")
 )
 
 func init() {

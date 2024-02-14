@@ -1,12 +1,12 @@
 {
-  "module_id": "aleparedes:viam-telegraf-sensor",
-  "visibility": "public",
+  "module_id": "viam:viam-telegraf-sensor",
+  "visibility": "private",
   "url": "https://github.com/ale7714/viam-telegraf-sensor",
   "description": "Sensor to capture Telegraf metrics",
   "models": [
     {
       "api": "rdk:component:sensor",
-      "model": "aleparedes:viam-sensor:telegrafsensor"
+      "model": "viam:viam-sensor:telegrafsensor"
     }
   ],
   "entrypoint": "run.sh"
