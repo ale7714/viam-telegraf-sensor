@@ -9,5 +9,9 @@
       "model": "aleparedes:viam-sensor:telegrafsensor"
     }
   ],
+  "build": {
+    "build": "make module.tar.gz",          
+    "arch" : ["linux/amd64", "linux/arm64", "darwin/amd64", "darwin/arm64"] 
+  },
   "entrypoint": "run.sh"
 }

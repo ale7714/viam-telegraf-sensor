@@ -35,5 +35,5 @@ else
     fi
     $SUDO cp viam-telegraf.conf /etc/viam-telegraf.conf
 
-    exec ./bin/telegraf-sensor-$OS "$@"
+    exec ./bin "$@"
 fi
