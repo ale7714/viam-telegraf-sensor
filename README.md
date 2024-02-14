@@ -132,7 +132,7 @@ Currently, this sensor executes telegraf as a client and collect the metrics ena
 
 ## How to use 
 To use this module from the Viam Registry:
-1. Add a component of type Sensor and select viam-sensor:telegrafsensor.
+1. Add a component of type Sensor and select aleparedes:viam-telegraf-sensor.
 2. Set Data capture configure and select Type Readings.
 3. Setup a Data Capture Service.
 
