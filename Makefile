@@ -1,5 +1,3 @@
-VERSION=0.0.19
-
 bin: *.go */*.go go.*
 	go build -o $@ -ldflags "-s -w"
 	file $@
