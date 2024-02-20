@@ -1,5 +1,5 @@
 bin: *.go */*.go go.*
-	go build -o $@ -ldflags "-s -w"
+	go build -o $@ -ldflags "-s -w" -tags osusergo,netgo
 	file $@
 
 module.tar.gz: bin
