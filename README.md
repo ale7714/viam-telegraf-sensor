@@ -53,7 +53,7 @@ None.
 
 ## Local Development
 
-To use the `filtered_camera` module, clone this repository to your
+To use the `viam-telegraf-sensor` module, clone this repository to your
 machine’s computer, navigate to the `module` directory, and run:
 
 ```go
