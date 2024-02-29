@@ -1,12 +1,79 @@
-# telegraf-sensor
+# `telegraf-sensor` modular resource
 
-A Viam sensor implementation in Go that reads the output from [Telegraf](https://github.com/influxdata/telegraf). 
+A Viam `sensor` implementation in Go that reads the output from [Telegraf](https://github.com/influxdata/telegraf).
 Currently, this sensor executes telegraf as a client and collect the metrics enabled on [viam-telegraf.conf](viam-telegraf.conf). 
 
-<details> 
-<summary>Example readign captured by the sensor</summary>
-<code lang="json">
+## Build and run
+
+To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `viam:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/viam/viam-telegraf-sensor).
+
+## Configure your `telegraf-sensor`
+
+> [!NOTE]
+> Before configuring your `telegraf-sensor`, you must [create a machine](https://docs.viam.com/manage/fleet/machines/#add-a-new-machine).
+
+Navigate to the **Config** tab of your machine's page in [the Viam app](https://app.viam.com/).
+Click on the **Components** subtab and click **Create component**.
+Select the `sensor` type, then select the `viam-sensor:telegrafsensor` model.
+Click **Add module**, then enter a name for your sensor and click **Create** and save your config.
+
+> [!NOTE]
+> For more information, see [Configure a Machine](https://docs.viam.com/manage/configuration/).
+
+### Attributes
+
+None.
+
+### Example configuration
+
+```json
+{
+  "name": "myststemsor",
+  "model": "viam:viam-sensor:telegrafsensor",
+  "type": "sensor",
+  "namespace": "rdk",
+  "attributes": {},
+  "depends_on": [],
+  "service_configs": [
     {
+      "type": "data_manager",
+      "attributes": {
+        "capture_methods": [
+          {
+            "method": "Readings",
+            "additional_params": {},
+            "capture_frequency_hz": 0.2
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+## Local Development
+
+To use the `filtered_camera` module, clone this repository to your
+machine’s computer, navigate to the `module` directory, and run:
+
+```go
+go build
+```
+
+On your robot’s page in the [Viam app](https://app.viam.com/), enter
+the [module’s executable
+path](/registry/create/#prepare-the-module-for-execution, then click
+**Add module**.
+The name must use only lowercase characters.
+Then, click **Save config**.
+
+## Next Steps
+
+1. To test your sensor, go to the [**Control** tab](https://docs.viam.com/manage/fleet/robots/#control) and test that you are getting readings.
+   <div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
+   <details> 
+    <summary>Example reading captured by the sensor</summary>
+    <pre><code lang="json">{
         "readings": {
             "disk": {
                 "/boot/firmware": {
@@ -126,66 +193,12 @@ Currently, this sensor executes telegraf as a client and collect the metrics ena
                 }
             }
         }
-    }
-</code>
-</details> 
+    }</code></pre>
+    </details> </div>
 
-## How to use 
-To use this module from the Viam Registry:
-1. Add a component of type Sensor and select aleparedes:viam-telegraf-sensor.
-2. Set Data capture configure and select Type Readings.
-3. Setup a Data Capture Service.
+2. Once you can obtain your machine's performance metrics, configure the data manager to [capture](https://docs.viam.com/data/capture/) and [sync](https://docs.viam.com/data/cloud-sync/) the data from all of your machines.
+3. To retrieve data captured with the data manager, you can [query data with SQL or MQL](https://docs.viam.com/data/query/) or [visualize it with tools like Grafana](https://docs.viam.com/data/visualize/).
 
-<details> 
-<summary>Example viam.json config using the module</summary>
-<code lang="json">
-{
-  "components": [
-    {
-      "name": "myststemsor",
-      "model": "viam:viam-sensor:telegrafsensor",
-      "type": "sensor",
-      "namespace": "rdk",
-      "attributes": {},
-      "depends_on": [],
-      "service_configs": [
-        {
-          "type": "data_manager",
-          "attributes": {
-            "capture_methods": [
-              {
-                "method": "Readings",
-                "additional_params": {},
-                "capture_frequency_hz": 0.2
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ],
-  "modules": [
-    {
-      "module_id": "viam:viam-telegraf-sensor",
-      "version": "latest",
-      "type": "registry",
-      "name": "viam_viam-telegraf-sensor"
-    }
-  ],
-  "services": [
-    {
-      "attributes": {
-        "sync_disabled": false,
-        "sync_interval_mins": 0.1,
-        "capture_dir": "",
-        "tags": [],
-        "additional_sync_paths": [],
-        "capture_disabled": false
-      },
-      "name": "Data-Management-Service",
-      "type": "data_manager"
-    }
-  ]
-}
-</code>
-</details>
+## License
+Copyright 2021-2023 Viam Inc. <br>
+Apache 2.0
