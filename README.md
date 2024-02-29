@@ -5,7 +5,7 @@ Currently, this sensor executes telegraf as a client and collect the metrics ena
 
 ## Build and run
 
-To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `viam:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/viam/viam-telegraf-sensor).
+To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `aleparedes:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/viam/viam-telegraf-sensor).
 
 ## Configure your `telegraf-sensor`
 
