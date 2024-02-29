@@ -29,7 +29,7 @@ None.
 ```json
 {
   "name": "myststemsor",
-  "model": "viam:viam-sensor:telegrafsensor",
+  "model": "aleparedes:viam-sensor:telegrafsensor",
   "type": "sensor",
   "namespace": "rdk",
   "attributes": {},
