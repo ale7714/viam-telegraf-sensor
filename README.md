@@ -62,7 +62,7 @@ go build
 
 On your robot’s page in the [Viam app](https://app.viam.com/), enter
 the [module’s executable
-path](/registry/create/#prepare-the-module-for-execution, then click
+path](/registry/create/#prepare-the-module-for-execution), then click
 **Add module**.
 The name must use only lowercase characters.
 Then, click **Save config**.
