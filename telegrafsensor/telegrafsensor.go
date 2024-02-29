@@ -106,7 +106,7 @@ func toMap(metricsMap map[string][]Metric, logger logging.Logger) map[string]int
 		}
 
 		for _, metric := range metrics {
-			for _, groupTag := range []string{"path", "interface", "sensor", "device", "host"} {
+			for _, groupTag := range []string{"path", "interface", "sensor", "device", "name", "host"} {
 				if _, ok := metric.Tags[groupTag]; ok {
 					grouping := metric.Tags[groupTag].(string)
 					results[name].(map[string]interface{})[grouping] = metricToMap(metric)
