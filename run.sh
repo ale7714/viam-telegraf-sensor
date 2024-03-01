@@ -31,7 +31,7 @@ else
                 fi
         fi
     else 
-        echo "Telegraf avialable in the system. Skipping installation."
+        echo "Telegraf available in the system. Skipping installation."
     fi
     $SUDO cp viam-telegraf.conf /etc/viam-telegraf.conf
 
