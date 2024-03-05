@@ -1,0 +1,108 @@
+---
+- - :permit
+  - MIT
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:34:01.073352000 Z
+- - :permit
+  - Apache 2.0
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:42:29.116953000 Z
+- - :permit
+  - New BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:42:35.725912000 Z
+- - :permit
+  - ISC
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:43:05.725912000 Z
+- - :permit
+  - Simplified BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:43:46.725912000 Z
+- - :permit
+  - Creative Commons Attribution 4.0 International Public License
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:43:46.725912000 Z
+- - :permit
+  - GPLv2+
+  - :who:
+    :why:
+    :versions: []
+    :when: 2024-03-05 22:43:46.725912000 Z
+- - :license
+  - github.com/go-fonts/liberation
+  - New BSD
+  - :who:
+    :license_links: https://github.com/go-fonts/liberation/blob/0c2fdab5e932afd0923f4f71ae23691a66305ef6/LICENSE
+    :versions: []
+    :when: 2024-03-05 22:44:06.725912000 Z
+- - :license
+  - github.com/go-gl/mathgl
+  - New BSD
+  - :who:
+    :license_links: https://github.com/go-gl/mathgl/blob/45f44e1fbc36e29eb200186c5fd63828a2ffc540/LICENSE
+    :versions: []
+    :when: 2024-03-05 22:44:58.725912000 Z
+- - :license
+  - github.com/go-latex/latex
+  - New BSD
+  - :who:
+    :why:
+    :license_links: https://github.com/go-latex/latex/blob/c0d11ff05a81a63afdffbba6e577b2a3a6e69c85/LICENSE
+    :versions: []
+    :when: 2024-03-05 22:45:40.725912000 Z
+- - :license
+  - github.com/ajstarks/svgo
+  - Creative Commons Attribution 4.0 International Public License
+  - :who: 
+    :license_links: https://github.com/ajstarks/svgo/blob/1546f124cd8b0cba8d505fa2ddb110c211670c59/LICENSE
+    :versions: [v0.0.0-20211024235047-1546f124cd8b]
+    :when: 2024-03-05 22:46:40.725912000 Z
+- - :license
+  - github.com/golang/freetype
+  - GPLv2+
+  - :who: 
+    :license_links: https://github.com/golang/freetype/blob/e2365dfdc4a05e4b8299a783240d4a7d5a65d4e4/licenses/gpl.txt
+    :versions: [v0.0.0-20170609003504-e2365dfdc4a0]
+    :when: 2024-03-05 22:47:00.725912000 Z
+- - :approve
+  - github.com/ziutek/mymysql
+  - :who: 
+    :why: compatible with AGPL
+    :versions: []
+    :when: 2024-03-05 22:50:02.725912000 Z
+    :license_links: https://github.com/ziutek/mymysql/blob/37ecf1653064ce27b81937fb8852267de78402fc/LICENSE
+- - :license
+  - go-hep.org/x/hep
+  - New BSD
+  - :who: 
+    :why: 
+    :license_links: https://github.com/go-hep/hep/blob/c10415004805bb2058abce1dc8ea14b3a2e130cc/LICENSE
+    :versions: []
+    :when: 2024-03-05 22:53:11.725912000 Z
+- - :license
+  - gonum.org/v1/plot
+  - New BSD
+  - :who: 
+    :why: 
+    :license_links: https://github.com/gonum/plot/blob/342a5cee2153b051d94ae813861f9436c5584de2/LICENSE
+    :versions: []
+- - :approve
+  - go.viam.com/rdk
+  - :who: 
+    :why: AGPLv3
+    :versions: []
+    :when: 2024-03-05 22:50:02.725912000 Z
+    :license_links: https://github.com/viamrobotics/rdk/blob/06e5d23223b132bd26db9dc0c4b97a9bc7b72a65/LICENSE
