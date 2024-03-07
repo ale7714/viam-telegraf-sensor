@@ -172,7 +172,7 @@ func appendFields(m Metric, newFields map[string]interface{}) (map[string]interf
 
 func getTelegrafMetrics() (string, error) {
 	// telegraf must be configure to output in json format
-	cmd := exec.Command("telegraf", "--config", "/etc/viam-telegraf.conf", "--once")
+	cmd := exec.Command("telegraf", "--config", "/tmp/viam-telegraf.conf", "--once")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 
