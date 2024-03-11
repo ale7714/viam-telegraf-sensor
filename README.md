@@ -5,7 +5,7 @@ Currently, this sensor executes telegraf as a client and collect the metrics ena
 
 ## Build and run
 
-To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `aleparedes:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/viam/viam-telegraf-sensor).
+To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `aleparedes:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/aleparedes/viam-telegraf-sensor).
 
 ## Configure your `telegraf-sensor`
 
@@ -14,7 +14,7 @@ To use this module, follow the instructions to [add a module from the Viam Regis
 
 Navigate to the **Config** tab of your machine's page in [the Viam app](https://app.viam.com/).
 Click on the **Components** subtab and click **Create component**.
-Select the `sensor` type, then select the `viam-sensor:telegrafsensor` model.
+Select the `sensor` type, then select the `aleparedes:viam-sensor:telegrafsensor` model.
 Click **Add module**, then enter a name for your sensor and click **Create** and save your config.
 
 > [!NOTE]
@@ -76,27 +76,6 @@ Then, click **Save config**.
     <pre><code lang="json">{
         "readings": {
             "disk": {
-                "/boot/firmware": {
-                    "fields": {
-                    "used_percent": 12.108794558740177,
-                    "free": 470011904,
-                    "inodes_free": 0,
-                    "inodes_total": 0,
-                    "inodes_used": 0,
-                    "inodes_used_percent": 0,
-                    "total": 534765568,
-                    "used": 64753664
-                    },
-                    "tags": {
-                    "device": "mmcblk0p1",
-                    "fstype": "vfat",
-                    "host": "myhost",
-                    "mode": "rw",
-                    "path": "/boot/firmware"
-                    },
-                    "timestamp": 1707848856
-                },
-                "/": {
                     "timestamp": 1707848856,
                     "fields": {
                     "total": 125321166848,
@@ -114,8 +93,7 @@ Then, click **Save config**.
                     "device": "mmcblk0p2",
                     "fstype": "ext4",
                     "host": "myhost"
-                    }
-                }
+              }   
             },
             "processes": {
                 "myhost": {
