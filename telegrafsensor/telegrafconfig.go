@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"reflect"
-	"strings"
 
 	"go.viam.com/rdk/logging"
 	"go.viam.com/rdk/resource"
@@ -21,12 +19,7 @@ const (
 var embeddedConfFS embed.FS
 
 func newTelegrafConf(conf resource.Config, logger logging.Logger) error {
-	newConf, err := resource.TransformAttributeMap[*Config](conf.Attributes)
-	if err != nil {
-		logger.Errorf("failed to configure sensor with %+v", conf)
-		return err
-	}
-	logger.Debugf("configuring sensor with %+v", newConf)
+	logger.Debugf("configuring sensor with %+v", conf)
 
 	baseConfigData, err := embeddedConfFS.ReadFile(baseTelegrafConf)
 	if err != nil {
@@ -38,36 +31,41 @@ func newTelegrafConf(conf resource.Config, logger logging.Logger) error {
 		return fmt.Errorf("error writing config file: %v", err)
 	}
 
-	v := reflect.ValueOf(*newConf)
-	typeOfS := v.Type()
 	emptyInputs := true
 
-	for i := 0; i < v.NumField(); i++ {
-		fieldValue := v.Field(i).Interface()
-		if skipSection, ok := fieldValue.(bool); ok && !skipSection {
-			fieldName := typeOfS.Field(i).Name
-			confName := strings.TrimPrefix(strings.ToLower(fieldName), "disable")
-			configFileName := fmt.Sprintf("conf/inputs/%s.conf", confName)
-
-			templateData, err := embeddedConfFS.ReadFile(configFileName)
-			if err != nil {
-				logger.Errorf("Skipping %s. Error reading %v", configFileName, err)
+	for confName, disableField := range metricMap {
+		switch disableField {
+		case "disable_temp", "disable_wireless":
+			if conf.Attributes.Bool(disableField, true) {
+				logger.Debugf("Skipping config section for %s metric", confName)
 				continue
 			}
-
-			destFile, err := os.OpenFile(telegrafConfPath, os.O_APPEND|os.O_WRONLY, 0644)
-			if err != nil {
-				logger.Errorf("Error opening file %s: %v", telegrafConfPath, err)
+		default:
+			if conf.Attributes.Bool(disableField, false) {
+				logger.Debugf("Skipping config section for %s metric", confName)
 				continue
 			}
-
-			if _, err := destFile.Write(templateData); err != nil {
-				logger.Errorf("Error writing config file %s: %v", telegrafConfPath, err)
-			}
-			destFile.Close()
-			emptyInputs = false
-			logger.Debugf("Added config section for %s metric", confName)
 		}
+
+		configFileName := fmt.Sprintf("conf/inputs/%s.conf", confName)
+		templateData, err := embeddedConfFS.ReadFile(configFileName)
+		if err != nil {
+			logger.Errorf("Skipping %s. Error reading %v", configFileName, err)
+			continue
+		}
+
+		destFile, err := os.OpenFile(telegrafConfPath, os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			logger.Errorf("Error opening file %s: %v", telegrafConfPath, err)
+			continue
+		}
+
+		if _, err := destFile.Write(templateData); err != nil {
+			logger.Errorf("Error writing config file %s: %v", telegrafConfPath, err)
+		}
+		destFile.Close()
+		emptyInputs = false
+		logger.Debugf("Added config section for %s metric", confName)
 
 	}
 
@@ -90,6 +88,21 @@ type Config struct {
 	DisableProcesses bool `json:"disable_processes"`
 	DisableSwap      bool `json:"disable_swap"`
 	DisableSystem    bool `json:"disable_system"`
-	DisableTemp      bool `json:"disable_temp"`
-	DisableWireless  bool `json:"disable_wireless"`
+	DisableTemp      bool `json:"disable_temp,omitempty"`
+	DisableWireless  bool `json:"disable_wireless,omitempty"`
+}
+
+var metricMap = map[string]string{
+	"cpu":       "disable_cpu",
+	"disk":      "disable_disk",
+	"diskio":    "disable_disk_io",
+	"kernel":    "disable_kernel",
+	"mem":       "disable_mem",
+	"net":       "disable_net",
+	"netstat":   "disable_netstat",
+	"processes": "disable_processes",
+	"swap":      "disable_swap",
+	"system":    "disable_system",
+	"temp":      "disable_temp",
+	"wireless":  "disable_wireless",
 }
