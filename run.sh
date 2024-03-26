@@ -34,7 +34,4 @@ if [[ $(command -v telegraf) == "" ]]; then
 else 
     echo "Telegraf available in the system. Skipping installation."
 fi
-
-cp viam-telegraf.conf /tmp/viam-telegraf.conf
-
 exec ./bin "$@"

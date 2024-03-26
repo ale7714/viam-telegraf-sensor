@@ -3,7 +3,7 @@ bin: *.go */*.go go.*
 	file $@
 
 module.tar.gz: clean bin
-	tar -czf module.tar.gz run.sh bin viam-telegraf.conf
+	tar -czf module.tar.gz run.sh bin
 
 clean:
 	rm -f bin
