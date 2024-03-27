@@ -35,6 +35,7 @@ func newTelegrafConf(conf resource.Config, logger logging.Logger) error {
 
 	for confName, disableField := range metricMap {
 		switch disableField {
+		// Wireless and Temp disabled by default as not all systems have the necessary hardware.
 		case "disable_temp", "disable_wireless":
 			if conf.Attributes.Bool(disableField, true) {
 				logger.Debugf("Skipping config section for %s metric", confName)
