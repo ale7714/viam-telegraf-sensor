@@ -33,16 +33,16 @@ func newSensor(
 	conf resource.Config,
 	logger logging.Logger,
 ) (sensor.Sensor, error) {
-	// newConfig, err := resource.NativeConfig[*Config](conf)
-	// if err != nil {
-	// 	return nil, err
-	// }
 	ts := TelegrafSensor{
 		Named:  conf.ResourceName().AsNamed(),
 		logger: logger,
-		// Attributes necessary for this sensor component config
 	}
 
+	err := newTelegrafConf(conf, logger)
+
+	if err != nil {
+		return nil, err
+	}
 	return &ts, nil
 }
 
@@ -53,18 +53,11 @@ type TelegrafSensor struct {
 	logger logging.Logger
 }
 
-type Config struct {
-}
-
 type Metric struct {
 	Name      string                 `json:"name"`
 	Fields    map[string]interface{} `json:"fields"`
 	Tags      map[string]interface{} `json:"tags"`
 	Timestamp uint64                 `json:"timestamp"`
-}
-
-func (cfg *Config) Validate(path string) ([]string, error) {
-	return nil, nil
 }
 
 func (ts *TelegrafSensor) Readings(ctx context.Context, _ map[string]interface{}) (map[string]interface{}, error) {
@@ -172,7 +165,7 @@ func appendFields(m Metric, newFields map[string]interface{}) (map[string]interf
 
 func getTelegrafMetrics() (string, error) {
 	// telegraf must be configure to output in json format
-	cmd := exec.Command("telegraf", "--config", "/tmp/viam-telegraf.conf", "--once")
+	cmd := exec.Command("telegraf", "--config", telegrafConfPath, "--once")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 

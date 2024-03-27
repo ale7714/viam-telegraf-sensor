@@ -29,7 +29,22 @@ Click **Add module**, then enter a name for your sensor and click **Create** and
 
 ### Attributes
 
-None.
+The following metrics are enabled by default CPU, Disk, Disk IO, Kernel, Mem, Net, Netstat, Processes, Swap, System. Wireless and Temp are disabled by default. You can change this configuration by setting the following attributes accordingly:
+
+| Name | Type | Required | Default |
+|---|---|---|---|
+| disable_cpu | boolean | No | false |
+| disable_disk | boolean | No | false |
+| disable_disk_io | boolean | No | false |
+| disable_kernel | boolean | No | false |
+| disable_mem | boolean | No | false |
+| disable_net | boolean | No | false |
+| disable_netstat | boolean | No | false |
+| disable_processes | boolean | No | false |
+| disable_swap | boolean | No | false |
+| disable_system | boolean | No | false |
+| disable_temp | boolean | No | true |
+| disable_wireless | boolean | No | true | 
 
 ### Example configuration
 
@@ -39,7 +54,9 @@ None.
   "model": "aleparedes:viam-sensor:telegrafsensor",
   "type": "sensor",
   "namespace": "rdk",
-  "attributes": {},
+  "attributes": {
+    "disable_kernel": true
+  },
   "depends_on": [],
   "service_configs": [
     {
