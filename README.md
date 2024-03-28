@@ -51,7 +51,7 @@ The following metrics are enabled by default CPU, Disk, Disk IO, Kernel, Mem, Ne
 ```json
 {
   "name": "myststemsor",
-  "model": "aleparedes:viam-sensor:telegrafsensor",
+  "model": "viam:viam-sensor:telegrafsensor",
   "type": "sensor",
   "namespace": "rdk",
   "attributes": {

@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"github.com/ale7714/viam-telegraf-sensor/telegrafsensor"
+	"github.com/viamrobotics/viam-telegraf-sensor/telegrafsensor"
 	"go.viam.com/rdk/components/sensor"
 	"go.viam.com/rdk/logging"
 	"go.viam.com/rdk/module"
