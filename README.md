@@ -97,105 +97,204 @@ Then, click **Save config**.
    <div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto">
    <details> 
     <summary>Example reading captured by the sensor</summary>
-    <pre><code lang="json">{
+    <pre><code lang="json">
+      {
         "readings": {
-            "disk": {
-                    "timestamp": 1707848856,
-                    "fields": {
-                    "total": 125321166848,
-                    "used": 2378993664,
-                    "used_percent": 2.0001903732962742,
-                    "free": 116559368192,
-                    "inodes_free": 7439341,
-                    "inodes_total": 7500896,
-                    "inodes_used": 61555,
-                    "inodes_used_percent": 0.8206352947701181
-                    },
-                    "tags": {
-                    "mode": "rw",
-                    "path": "/",
-                    "device": "mmcblk0p2",
-                    "fstype": "ext4",
-                    "host": "myhost"
-              }   
+          "host": "raspi5agent",
+          "diskio": {
+            "write_time": 2608023,
+            "io_time": 1889772,
+            "write_bytes": 5211975680,
+            "name": "mmcblk0p2",
+            "iops_in_progress": 0,
+            "merged_reads": 1998,
+            "merged_writes": 637945,
+            "read_bytes": 413373440,
+            "weighted_io_time": 2640492,
+            "read_time": 30239,
+            "reads": 9984,
+            "writes": 453041,
+            "timestamp": 1711641414
+          },
+          "netstat": {
+            "tcp_established": 68,
+            "tcp_fin_wait2": 0,
+            "tcp_syn_sent": 0,
+            "tcp_time_wait": 0,
+            "tcp_syn_recv": 0,
+            "tcp_close_wait": 0,
+            "tcp_close": 0,
+            "udp_socket": 12,
+            "tcp_last_ack": 0,
+            "tcp_fin_wait1": 0,
+            "tcp_none": 27,
+            "tcp_closing": 0,
+            "tcp_listen": 4,
+            "timestamp": 1711641414
+          },
+          "system": {
+            "n_cpus": 4,
+            "uptime_format": "8 days, 20:05",
+            "n_users": 0,
+            "load5": 0.35,
+            "timestamp": 1711641414,
+            "n_unique_users": 0,
+            "load15": 0.47,
+            "uptime": 763516,
+            "load1": 0.73
+          },
+          "net": [
+            {
+              "packets_sent": 0,
+              "packets_recv": 0,
+              "bytes_recv": 0,
+              "bytes_sent": 0,
+              "drop_out": 0,
+              "drop_in": 0,
+              "speed": -1,
+              "err_out": 0,
+              "timestamp": 1711641414,
+              "interface": "eth0",
+              "err_in": 0
             },
-            "processes": {
-                "myhost": {
-                    "timestamp": 1707848856,
-                    "fields": {
-                    "running": 0,
-                    "total_threads": 196,
-                    "idle": 67,
-                    "sleeping": 80,
-                    "zombies": 0,
-                    "paging": 0,
-                    "total": 147,
-                    "stopped": 0,
-                    "unknown": 0,
-                    "blocked": 0,
-                    "dead": 0
-                    },
-                    "tags": {
-                    "host": "myhost"
-                    }
-                }
-            },
-            "system": {
-                "myhost": {
-                    "fields": {
-                    "n_unique_users": 0,
-                    "n_users": 0,
-                    "uptime": 10581,
-                    "uptime_format": " 2:56",
-                    "load1": 0.25,
-                    "load15": 0.19,
-                    "load5": 0.21,
-                    "n_cpus": 4
-                    },
-                    "tags": {
-                    "host": "myhost"
-                    },
-                    "timestamp": 1707848856
-                }
-            },
-            "net": {
-                "eth0": {
-                    "fields": {
-                    "err_out": 0,
-                    "packets_recv": 224742,
-                    "packets_sent": 71571,
-                    "bytes_recv": 279368016,
-                    "bytes_sent": 12627184,
-                    "drop_in": 0,
-                    "drop_out": 0,
-                    "err_in": 0
-                    },
-                    "tags": {
-                    "host": "myhost",
-                    "interface": "eth0"
-                    },
-                    "timestamp": 1707848856
-                },
-                "wlan0": {
-                    "timestamp": 1707848856,
-                    "fields": {
-                    "err_out": 0,
-                    "packets_recv": 41873,
-                    "packets_sent": 6761,
-                    "bytes_recv": 28686421,
-                    "bytes_sent": 1251119,
-                    "drop_in": 31,
-                    "drop_out": 0,
-                    "err_in": 0
-                    },
-                    "tags": {
-                    "host": "myhost",
-                    "interface": "wlan0"
-                    }
-                }
+            {
+              "err_out": 0,
+              "bytes_recv": 5272812086,
+              "packets_recv": 32067452,
+              "err_in": 0,
+              "drop_in": 2784928,
+              "speed": -1,
+              "interface": "wlan0",
+              "drop_out": 0,
+              "packets_sent": 1759907,
+              "timestamp": 1711641414,
+              "bytes_sent": 174888403
             }
+          ],
+          "swap": {
+            "used": 0,
+            "used_percent": 0,
+            "in": 0,
+            "out": 0,
+            "timestamp": 1711641414,
+            "free": 104808448,
+            "total": 104808448
+          },
+          "disk": {
+            "total": 30825463808,
+            "inodes_total": 1849536,
+            "inodes_free": 1789077,
+            "used": 2455629824,
+            "device": "mmcblk0p2",
+            "fstype": "ext4",
+            "timestamp": 1711641414,
+            "used_percent": 8.314264523637558,
+            "inodes_used_percent": 3.268873922973113,
+            "path": "/",
+            "free": 27079512064,
+            "inodes_used": 60459
+          },
+          "wireless": {
+            "interface": "wlan0",
+            "timestamp": 1711641414,
+            "status": 0,
+            "retry": 5320,
+            "noise": -256,
+            "beacon": 0,
+            "misc": 0,
+            "link": 56,
+            "crypt": 0,
+            "frag": 0,
+            "level": -54,
+            "nwid": 0
+          },
+          "mem": {
+            "swap_free": 104808448,
+            "high_free": 0,
+            "vmalloc_used": 17268736,
+            "huge_pages_total": 0,
+            "shared": 5226496,
+            "swap_total": 104808448,
+            "available_percent": 94.28952795578138,
+            "sunreclaim": 31768576,
+            "write_back": 0,
+            "free": 7323566080,
+            "mapped": 207929344,
+            "used_percent": 4.489377016484977,
+            "total": 8444952576,
+            "cached": 656261120,
+            "low_total": 0,
+            "vmalloc_total": 69818585710592,
+            "vmalloc_chunk": 0,
+            "huge_pages_free": 0,
+            "sreclaimable": 45105152,
+            "commit_limit": 4327276544,
+            "high_total": 0,
+            "timestamp": 1711641414,
+            "write_back_tmp": 0,
+            "huge_page_size": 0,
+            "swap_cached": 0,
+            "dirty": 180224,
+            "inactive": 353271808,
+            "buffered": 85999616,
+            "page_tables": 5341184,
+            "committed_as": 1116209152,
+            "active": 637059072,
+            "low_free": 0,
+            "available": 7962705920,
+            "used": 379125760,
+            "slab": 76873728
+          },
+          "kernel": {
+            "context_switches": 2426899428,
+            "entropy_avail": 256,
+            "interrupts": 1279151542,
+            "processes_forked": 24867,
+            "timestamp": 1711641414,
+            "boot_time": 1710877898
+          },
+          "processes": {
+            "idle": 58,
+            "paging": 0,
+            "blocked": 0,
+            "running": 0,
+            "dead": 0,
+            "total": 141,
+            "timestamp": 1711641414,
+            "stopped": 0,
+            "total_threads": 255,
+            "sleeping": 83,
+            "unknown": 0,
+            "zombies": 0
+          },
+          "cpu": {
+            "usage_iowait": 0,
+            "usage_nice": 0,
+            "timestamp": 1711641414,
+            "usage_steal": 0,
+            "usage_guest": 0,
+            "usage_softirq": 0,
+            "usage_system": 1.0050251257723701,
+            "usage_guest_nice": 0,
+            "usage_irq": 0,
+            "usage_idle": 98.49246232167037,
+            "usage_user": 0.5025125628861851
+          },
+          "temp": [
+            {
+              "timestamp": 1711641414,
+              "temp": 55.1,
+              "sensor": "cpu_thermal"
+            },
+            {
+              "temp": 50.823,
+              "sensor": "rp1_adc",
+              "timestamp": 1711641414
+            }
+          ]
         }
-    }</code></pre>
+      } 
+    </code></pre>
     </details> </div>
 
 2. Once you can obtain your machine's performance metrics, configure the data manager to [capture](https://docs.viam.com/data/capture/) and [sync](https://docs.viam.com/data/cloud-sync/) the data from all of your machines.
