@@ -5,7 +5,7 @@ Currently, this sensor executes telegraf as a client and collect the metrics ena
 
 ## Build and run
 
-To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `viam:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/aleparedes/viam-telegraf-sensor).
+To use this module, follow the instructions to [add a module from the Viam Registry](https://docs.viam.com/registry/configure/#add-a-modular-resource-from-the-viam-registry) and select the `viam:viam-sensor:telegrafsensor` model from the [`viam-telegraf-sensor` module](https://app.viam.com/module/viam/viam-telegraf-sensor).
 
 This sensor will attempt to automatically setup Telegraf on your device using `apt-get` on Linux or `homebrew` on Mac OS. It has been tested on the following devices 
 * Raspberry 4/5 running Debian Bookworm
@@ -21,7 +21,7 @@ This sensor will attempt to automatically setup Telegraf on your device using `a
 
 Navigate to the **Config** tab of your machine's page in [the Viam app](https://app.viam.com/).
 Click on the **Components** subtab and click **Create component**.
-Select the `sensor` type, then select the `aleparedes:viam-sensor:telegrafsensor` model.
+Select the `sensor` type, then select the `viam:viam-sensor:telegrafsensor` model.
 Click **Add module**, then enter a name for your sensor and click **Create** and save your config.
 
 > [!NOTE]
