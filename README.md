@@ -46,7 +46,7 @@ On the new component panel, copy and paste the following attribute template into
 Addjust your configuration and save your config.
 
 > [!NOTE]
-> For more information, see [Configure a Machine](https://docs.viam.com/manage/configuration/).
+> For more information, see [Configure a Machine](https://docs.viam.com/configure/).
 
 
 ### Attributes
