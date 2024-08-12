@@ -24,21 +24,21 @@ Click on the **Components** subtab and click **Create component**.
 Select the `sensor` type, then select the `viam:viam-sensor:telegrafsensor` model.
 Click **Add module**, then enter a name for your sensor and click **Create**.
 
-On the new component panel, copy and paste the following attribute template into your base’s **Attributes** box:
+On the new component panel, copy and paste the following attribute template into your sensor’s **Attributes** box:
 
 ```json
 {
-    "disable_cpu": false
-    "disable_disk": false
-    "disable_disk_io": false
-    "disable_kernel": false
-    "disable_mem": false
-    "disable_net": false
-    "disable_netstat": false
-    "disable_processes": false
-    "disable_swap": false
-    "disable_system": false
-    "disable_temp": true
+    "disable_cpu": false,
+    "disable_disk": false,
+    "disable_disk_io": false,
+    "disable_kernel": false,
+    "disable_mem": false,
+    "disable_net": false,
+    "disable_netstat": false,
+    "disable_processes": false,
+    "disable_swap": false,
+    "disable_system": false,
+    "disable_temp": true,
     "disable_wireless": true
 }
 ```
