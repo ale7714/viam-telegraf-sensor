@@ -1,7 +1,7 @@
 {
   "module_id": "viam:viam-telegraf-sensor",
   "visibility": "public",
-  "url": "https://github.com/viamrobotics/viam-telegraf-sensor",
+  "url": "https://github.com/viam-modules/viam-telegraf-sensor",
   "description": "Sensor to capture Telegraf metrics",
   "models": [
     {
