@@ -1,4 +1,4 @@
-module github.com/viamrobotics/viam-telegraf-sensor
+module github.com/viam-modules/viam-telegraf-sensor
 
 go 1.21
 
